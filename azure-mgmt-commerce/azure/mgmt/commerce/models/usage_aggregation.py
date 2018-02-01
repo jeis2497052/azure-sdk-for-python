@@ -47,8 +47,7 @@ class UsageAggregation(Model):
     :param meter_region: Region of the meterId used for billing purposes
     :type meter_region: str
     :param info_fields: Key-value pairs of instance details (legacy format).
-    :type info_fields: :class:`InfoField
-     <azure.mgmt.commerce.models.InfoField>`
+    :type info_fields: ~azure.mgmt.commerce.models.InfoField
     :param instance_data: Key-value pairs of instance details represented as a
      string.
     :type instance_data: str
@@ -73,6 +72,7 @@ class UsageAggregation(Model):
     }
 
     def __init__(self, id=None, name=None, type=None, subscription_id=None, meter_id=None, usage_start_time=None, usage_end_time=None, quantity=None, unit=None, meter_name=None, meter_category=None, meter_sub_category=None, meter_region=None, info_fields=None, instance_data=None):
+        super(UsageAggregation, self).__init__()
         self.id = id
         self.name = name
         self.type = type

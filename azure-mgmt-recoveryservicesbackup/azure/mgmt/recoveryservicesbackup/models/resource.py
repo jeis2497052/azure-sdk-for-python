@@ -13,46 +13,46 @@ from msrest.serialization import Model
 
 
 class Resource(Model):
-    """ARM Resource.
+    """Resource Manager Resource Information.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id represents the complete path to the resource.
+    :ivar id: Resource Manager Resource ID.
     :vartype id: str
-    :ivar name: Resource name associated with the resource.
-    :vartype name: str
-    :ivar type: Resource type represents the complete path of the form
-     Namespace/ResourceType/ResourceType/...
+    :ivar type: Resource Manager Resource Type.
     :vartype type: str
-    :param location: Resource location.
-    :type location: str
-    :param tags: Resource tags.
+    :ivar name: Resource Manager Resource Name.
+    :vartype name: str
+    :ivar location: Resource Manager Resource Location.
+    :vartype location: str
+    :param tags: Resource Manager Resource Tags.
     :type tags: dict[str, str]
-    :param e_tag: Optional ETag.
-    :type e_tag: str
+    :param etag:
+    :type etag: str
     """
 
     _validation = {
         'id': {'readonly': True},
-        'name': {'readonly': True},
         'type': {'readonly': True},
+        'name': {'readonly': True},
+        'location': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
-        'e_tag': {'key': 'eTag', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
     }
 
-    def __init__(self, location=None, tags=None, e_tag=None):
+    def __init__(self, tags=None, etag=None):
         super(Resource, self).__init__()
         self.id = None
-        self.name = None
         self.type = None
-        self.location = location
+        self.name = None
+        self.location = None
         self.tags = tags
-        self.e_tag = e_tag
+        self.etag = etag

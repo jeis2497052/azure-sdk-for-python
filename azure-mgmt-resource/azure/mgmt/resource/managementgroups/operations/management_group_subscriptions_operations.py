@@ -37,10 +37,17 @@ class ManagementGroupSubscriptionsOperations(object):
         self.config = config
 
     def create(
-            self, custom_headers=None, raw=False, **operation_config):
+            self, group_id, subscription_id, cache_control="no-cache", custom_headers=None, raw=False, **operation_config):
         """Associates existing subscription with the management group.
         .
 
+        :param group_id: Management Group ID.
+        :type group_id: str
+        :param subscription_id: Subscription ID.
+        :type subscription_id: str
+        :param cache_control: Indicates that the request shouldn't utilize any
+         caches.
+        :type cache_control: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -54,8 +61,8 @@ class ManagementGroupSubscriptionsOperations(object):
         # Construct URL
         url = '/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions/{subscriptionId}'
         path_format_arguments = {
-            'groupId': self._serialize.url("self.config.group_id", self.config.group_id, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'groupId': self._serialize.url("group_id", group_id, 'str'),
+            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -70,8 +77,8 @@ class ManagementGroupSubscriptionsOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
-        if self.config.cache_control is not None:
-            header_parameters['Cache-Control'] = self._serialize.header("self.config.cache_control", self.config.cache_control, 'str')
+        if cache_control is not None:
+            header_parameters['Cache-Control'] = self._serialize.header("cache_control", cache_control, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
@@ -87,10 +94,17 @@ class ManagementGroupSubscriptionsOperations(object):
             return client_raw_response
 
     def delete(
-            self, custom_headers=None, raw=False, **operation_config):
+            self, group_id, subscription_id, cache_control="no-cache", custom_headers=None, raw=False, **operation_config):
         """De-associates subscription from the management group.
         .
 
+        :param group_id: Management Group ID.
+        :type group_id: str
+        :param subscription_id: Subscription ID.
+        :type subscription_id: str
+        :param cache_control: Indicates that the request shouldn't utilize any
+         caches.
+        :type cache_control: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -104,8 +118,8 @@ class ManagementGroupSubscriptionsOperations(object):
         # Construct URL
         url = '/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions/{subscriptionId}'
         path_format_arguments = {
-            'groupId': self._serialize.url("self.config.group_id", self.config.group_id, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'groupId': self._serialize.url("group_id", group_id, 'str'),
+            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -120,8 +134,8 @@ class ManagementGroupSubscriptionsOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
-        if self.config.cache_control is not None:
-            header_parameters['Cache-Control'] = self._serialize.header("self.config.cache_control", self.config.cache_control, 'str')
+        if cache_control is not None:
+            header_parameters['Cache-Control'] = self._serialize.header("cache_control", cache_control, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
