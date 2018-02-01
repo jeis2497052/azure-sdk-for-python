@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class PriceSheetOperations(object):
-    """PriceSheetOperations operations.
+class PricesheetOperations(object):
+    """PricesheetOperations operations.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
@@ -36,9 +36,9 @@ class PriceSheetOperations(object):
 
         self.config = config
 
-    def list(
+    def get(
             self, expand=None, skiptoken=None, custom_headers=None, raw=False, **operation_config):
-        """Lists the price sheet for a scope by subscriptionId. Price sheets are
+        """Gets the price sheet for a scope by subscriptionId. Price sheet is
         available via this API only for May 1, 2014 or later.
 
         :param expand: May be used to expand the properties/meterDetails
@@ -55,8 +55,8 @@ class PriceSheetOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PriceSheetListResult or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.consumption.models.PriceSheetListResult or
+        :return: PriceSheetResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.consumption.models.PriceSheetResult or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.consumption.models.ErrorResponseException>`
@@ -96,7 +96,7 @@ class PriceSheetOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('PriceSheetListResult', response)
+            deserialized = self._deserialize('PriceSheetResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -104,10 +104,10 @@ class PriceSheetOperations(object):
 
         return deserialized
 
-    def list_by_billing_period(
+    def get_by_billing_period(
             self, billing_period_name, expand=None, skiptoken=None, custom_headers=None, raw=False, **operation_config):
-        """Lists the price sheet for a scope by subscriptionId and billing period.
-        Price sheets are available via this API only for May 1, 2014 or later.
+        """Get the price sheet for a scope by subscriptionId and billing period.
+        Price sheet is available via this API only for May 1, 2014 or later.
 
         :param billing_period_name: Billing Period Name.
         :type billing_period_name: str
@@ -125,8 +125,8 @@ class PriceSheetOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PriceSheetListResult or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.consumption.models.PriceSheetListResult or
+        :return: PriceSheetResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.consumption.models.PriceSheetResult or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.consumption.models.ErrorResponseException>`
@@ -167,7 +167,7 @@ class PriceSheetOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('PriceSheetListResult', response)
+            deserialized = self._deserialize('PriceSheetResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)

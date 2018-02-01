@@ -12,7 +12,7 @@
 from msrest.serialization import Model
 
 
-class PriceSheetListResult(Model):
+class PriceSheetResult(Model):
     """price sheet result. It contains the pricesheet associated with billing
     period.
 
@@ -36,6 +36,6 @@ class PriceSheetListResult(Model):
     }
 
     def __init__(self):
-        super(PriceSheetListResult, self).__init__()
+        super(PriceSheetResult, self).__init__()
         self.value = None
         self.next_link = None

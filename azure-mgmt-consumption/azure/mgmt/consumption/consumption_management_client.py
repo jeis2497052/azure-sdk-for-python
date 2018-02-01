@@ -19,7 +19,7 @@ from .operations.reservations_summaries_operations import ReservationsSummariesO
 from .operations.reservations_details_operations import ReservationsDetailsOperations
 from .operations.budgets_operations import BudgetsOperations
 from .operations.operations import Operations
-from .operations.price_sheet_operations import PriceSheetOperations
+from .operations.pricesheet_operations import PricesheetOperations
 from . import models
 
 
@@ -73,8 +73,8 @@ class ConsumptionManagementClient(object):
     :vartype budgets: azure.mgmt.consumption.operations.BudgetsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.consumption.operations.Operations
-    :ivar price_sheet: PriceSheet operations
-    :vartype price_sheet: azure.mgmt.consumption.operations.PriceSheetOperations
+    :ivar pricesheet: Pricesheet operations
+    :vartype pricesheet: azure.mgmt.consumption.operations.PricesheetOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -107,5 +107,5 @@ class ConsumptionManagementClient(object):
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.price_sheet = PriceSheetOperations(
+        self.pricesheet = PricesheetOperations(
             self._client, self.config, self._serialize, self._deserialize)
