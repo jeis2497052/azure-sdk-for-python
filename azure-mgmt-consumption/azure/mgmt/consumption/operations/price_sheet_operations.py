@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class PricesheetOperations(object):
-    """PricesheetOperations operations.
+class PriceSheetOperations(object):
+    """PriceSheetOperations operations.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
