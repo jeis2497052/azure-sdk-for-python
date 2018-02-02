@@ -9,33 +9,49 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.serialization import Model
+from .resource import Resource
 
 
-class PriceSheetResult(Model):
-    """price sheet result. It contains the pricesheet associated with billing
-    period.
+class PriceSheetResult(Resource):
+    """An pricesheet resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar value: Price sheet
-    :vartype value: object
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar tags: Resource tags.
+    :vartype tags: dict[str, str]
+    :ivar pricesheets: Price sheet
+    :vartype pricesheets:
+     list[~azure.mgmt.consumption.models.PriceSheetProperties]
     :ivar next_link: The link (url) to the next page of results.
     :vartype next_link: str
     """
 
     _validation = {
-        'value': {'readonly': True},
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'tags': {'readonly': True},
+        'pricesheets': {'readonly': True},
         'next_link': {'readonly': True},
     }
 
     _attribute_map = {
-        'value': {'key': 'value', 'type': 'object'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'pricesheets': {'key': 'properties.pricesheets', 'type': '[PriceSheetProperties]'},
+        'next_link': {'key': 'properties.nextLink', 'type': 'str'},
     }
 
     def __init__(self):
         super(PriceSheetResult, self).__init__()
-        self.value = None
+        self.pricesheets = None
         self.next_link = None

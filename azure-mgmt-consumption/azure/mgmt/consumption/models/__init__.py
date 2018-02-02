@@ -25,8 +25,8 @@ from .operation_display import OperationDisplay
 from .operation import Operation
 from .resource import Resource
 from .proxy_resource import ProxyResource
+from .price_sheet_properties import PriceSheetProperties
 from .price_sheet_result import PriceSheetResult
-from .price_sheet_model import PriceSheetModel
 from .usage_detail_paged import UsageDetailPaged
 from .marketplace_paged import MarketplacePaged
 from .reservation_summaries_paged import ReservationSummariesPaged
@@ -57,8 +57,8 @@ __all__ = [
     'Operation',
     'Resource',
     'ProxyResource',
+    'PriceSheetProperties',
     'PriceSheetResult',
-    'PriceSheetModel',
     'UsageDetailPaged',
     'MarketplacePaged',
     'ReservationSummariesPaged',
