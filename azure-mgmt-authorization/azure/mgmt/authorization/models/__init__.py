@@ -9,36 +9,36 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .role_definition_filter import RoleDefinitionFilter
 from .classic_administrator import ClassicAdministrator
-from .permission import Permission
 from .provider_operation import ProviderOperation
 from .resource_type import ResourceType
 from .provider_operations_metadata import ProviderOperationsMetadata
+from .permission import Permission
+from .role_definition_filter import RoleDefinitionFilter
 from .role_definition import RoleDefinition
 from .role_assignment_filter import RoleAssignmentFilter
 from .role_assignment import RoleAssignment
 from .role_assignment_create_parameters import RoleAssignmentCreateParameters
 from .classic_administrator_paged import ClassicAdministratorPaged
-from .permission_paged import PermissionPaged
 from .provider_operations_metadata_paged import ProviderOperationsMetadataPaged
-from .role_definition_paged import RoleDefinitionPaged
+from .permission_paged import PermissionPaged
 from .role_assignment_paged import RoleAssignmentPaged
+from .role_definition_paged import RoleDefinitionPaged
 
 __all__ = [
-    'RoleDefinitionFilter',
     'ClassicAdministrator',
-    'Permission',
     'ProviderOperation',
     'ResourceType',
     'ProviderOperationsMetadata',
+    'Permission',
+    'RoleDefinitionFilter',
     'RoleDefinition',
     'RoleAssignmentFilter',
     'RoleAssignment',
     'RoleAssignmentCreateParameters',
     'ClassicAdministratorPaged',
-    'PermissionPaged',
     'ProviderOperationsMetadataPaged',
-    'RoleDefinitionPaged',
+    'PermissionPaged',
     'RoleAssignmentPaged',
+    'RoleDefinitionPaged',
 ]
