@@ -12,27 +12,32 @@
 from msrest.serialization import Model
 
 
-class WebhookReceiver(Model):
-    """A webhook receiver.
+class VoiceReceiver(Model):
+    """An voice receiver.
 
-    :param name: The name of the webhook receiver. Names must be unique across
+    :param name: The name of the voice receiver. Names must be unique across
      all receivers within an action group.
     :type name: str
-    :param service_uri: The URI where webhooks should be sent.
-    :type service_uri: str
+    :param country_code: The country code of the voice receiver.
+    :type country_code: str
+    :param phone_number: The phone number of the voice receiver.
+    :type phone_number: str
     """
 
     _validation = {
         'name': {'required': True},
-        'service_uri': {'required': True},
+        'country_code': {'required': True},
+        'phone_number': {'required': True},
     }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
-        'service_uri': {'key': 'serviceUri', 'type': 'str'},
+        'country_code': {'key': 'countryCode', 'type': 'str'},
+        'phone_number': {'key': 'phoneNumber', 'type': 'str'},
     }
 
-    def __init__(self, name, service_uri):
-        super(WebhookReceiver, self).__init__()
+    def __init__(self, name, country_code, phone_number):
+        super(VoiceReceiver, self).__init__()
         self.name = name
-        self.service_uri = service_uri
+        self.country_code = country_code
+        self.phone_number = phone_number
