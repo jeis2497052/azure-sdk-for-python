@@ -20,6 +20,8 @@ from .operations.export_configurations_operations import ExportConfigurationsOpe
 from .operations.proactive_detection_configurations_operations import ProactiveDetectionConfigurationsOperations
 from .operations.component_current_billing_features_operations import ComponentCurrentBillingFeaturesOperations
 from .operations.component_quota_status_operations import ComponentQuotaStatusOperations
+from .operations.component_feature_capabilities_operations import ComponentFeatureCapabilitiesOperations
+from .operations.component_available_features_operations import ComponentAvailableFeaturesOperations
 from .operations.api_keys_operations import APIKeysOperations
 from . import models
 
@@ -76,6 +78,10 @@ class ApplicationInsightsManagementClient(object):
     :vartype component_current_billing_features: azure.mgmt.applicationinsights.operations.ComponentCurrentBillingFeaturesOperations
     :ivar component_quota_status: ComponentQuotaStatus operations
     :vartype component_quota_status: azure.mgmt.applicationinsights.operations.ComponentQuotaStatusOperations
+    :ivar component_feature_capabilities: ComponentFeatureCapabilities operations
+    :vartype component_feature_capabilities: azure.mgmt.applicationinsights.operations.ComponentFeatureCapabilitiesOperations
+    :ivar component_available_features: ComponentAvailableFeatures operations
+    :vartype component_available_features: azure.mgmt.applicationinsights.operations.ComponentAvailableFeaturesOperations
     :ivar api_keys: APIKeys operations
     :vartype api_keys: azure.mgmt.applicationinsights.operations.APIKeysOperations
 
@@ -111,6 +117,10 @@ class ApplicationInsightsManagementClient(object):
         self.component_current_billing_features = ComponentCurrentBillingFeaturesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.component_quota_status = ComponentQuotaStatusOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.component_feature_capabilities = ComponentFeatureCapabilitiesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.component_available_features = ComponentAvailableFeaturesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.api_keys = APIKeysOperations(
             self._client, self.config, self._serialize, self._deserialize)
