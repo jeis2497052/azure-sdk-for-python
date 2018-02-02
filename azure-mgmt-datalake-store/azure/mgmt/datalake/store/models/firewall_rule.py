@@ -18,11 +18,11 @@ class FirewallRule(SubResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: The resource identifier.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: The resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: The resource type.
     :vartype type: str
     :ivar start_ip_address: The start IP address for the firewall rule. This
      can be either ipv4 or ipv6. Start and End should be in the same protocol.

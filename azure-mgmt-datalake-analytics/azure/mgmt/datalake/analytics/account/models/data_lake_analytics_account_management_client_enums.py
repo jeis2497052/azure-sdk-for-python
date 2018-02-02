@@ -19,6 +19,31 @@ class AADObjectType(Enum):
     service_principal = "ServicePrincipal"
 
 
+class FirewallState(Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class FirewallAllowAzureIpsState(Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class TierType(Enum):
+
+    consumption = "Consumption"
+    commitment_100_au_hours = "Commitment_100AUHours"
+    commitment_500_au_hours = "Commitment_500AUHours"
+    commitment_1000_au_hours = "Commitment_1000AUHours"
+    commitment_5000_au_hours = "Commitment_5000AUHours"
+    commitment_10000_au_hours = "Commitment_10000AUHours"
+    commitment_50000_au_hours = "Commitment_50000AUHours"
+    commitment_100000_au_hours = "Commitment_100000AUHours"
+    commitment_500000_au_hours = "Commitment_500000AUHours"
+
+
 class DataLakeAnalyticsAccountStatus(Enum):
 
     failed = "Failed"
@@ -40,29 +65,11 @@ class DataLakeAnalyticsAccountState(Enum):
     suspended = "Suspended"
 
 
-class TierType(Enum):
+class OperationOrigin(Enum):
 
-    consumption = "Consumption"
-    commitment_100_au_hours = "Commitment_100AUHours"
-    commitment_500_au_hours = "Commitment_500AUHours"
-    commitment_1000_au_hours = "Commitment_1000AUHours"
-    commitment_5000_au_hours = "Commitment_5000AUHours"
-    commitment_10000_au_hours = "Commitment_10000AUHours"
-    commitment_50000_au_hours = "Commitment_50000AUHours"
-    commitment_100000_au_hours = "Commitment_100000AUHours"
-    commitment_500000_au_hours = "Commitment_500000AUHours"
-
-
-class FirewallState(Enum):
-
-    enabled = "Enabled"
-    disabled = "Disabled"
-
-
-class FirewallAllowAzureIpsState(Enum):
-
-    enabled = "Enabled"
-    disabled = "Disabled"
+    user = "user"
+    system = "system"
+    usersystem = "user,system"
 
 
 class SubscriptionState(Enum):
@@ -72,10 +79,3 @@ class SubscriptionState(Enum):
     deleted = "Deleted"
     unregistered = "Unregistered"
     warned = "Warned"
-
-
-class OperationOrigin(Enum):
-
-    user = "user"
-    system = "system"
-    usersystem = "user,system"

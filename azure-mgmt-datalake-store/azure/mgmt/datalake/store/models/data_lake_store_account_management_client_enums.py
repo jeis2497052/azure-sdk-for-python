@@ -18,27 +18,6 @@ class EncryptionConfigType(Enum):
     service_managed = "ServiceManaged"
 
 
-class DataLakeStoreAccountStatus(Enum):
-
-    failed = "Failed"
-    creating = "Creating"
-    running = "Running"
-    succeeded = "Succeeded"
-    patching = "Patching"
-    suspending = "Suspending"
-    resuming = "Resuming"
-    deleting = "Deleting"
-    deleted = "Deleted"
-    undeleting = "Undeleting"
-    canceled = "Canceled"
-
-
-class DataLakeStoreAccountState(Enum):
-
-    active = "Active"
-    suspended = "Suspended"
-
-
 class EncryptionState(Enum):
 
     enabled = "Enabled"
@@ -80,13 +59,25 @@ class TierType(Enum):
     commitment_5_pb = "Commitment_5PB"
 
 
-class SubscriptionState(Enum):
+class DataLakeStoreAccountStatus(Enum):
 
-    registered = "Registered"
-    suspended = "Suspended"
+    failed = "Failed"
+    creating = "Creating"
+    running = "Running"
+    succeeded = "Succeeded"
+    patching = "Patching"
+    suspending = "Suspending"
+    resuming = "Resuming"
+    deleting = "Deleting"
     deleted = "Deleted"
-    unregistered = "Unregistered"
-    warned = "Warned"
+    undeleting = "Undeleting"
+    canceled = "Canceled"
+
+
+class DataLakeStoreAccountState(Enum):
+
+    active = "Active"
+    suspended = "Suspended"
 
 
 class OperationOrigin(Enum):
@@ -94,3 +85,12 @@ class OperationOrigin(Enum):
     user = "user"
     system = "system"
     usersystem = "user,system"
+
+
+class SubscriptionState(Enum):
+
+    registered = "Registered"
+    suspended = "Suspended"
+    deleted = "Deleted"
+    unregistered = "Unregistered"
+    warned = "Warned"

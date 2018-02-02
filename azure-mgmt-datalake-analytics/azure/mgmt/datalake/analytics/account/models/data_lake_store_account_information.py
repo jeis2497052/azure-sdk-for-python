@@ -12,17 +12,17 @@
 from .sub_resource import SubResource
 
 
-class DataLakeStoreAccountInfo(SubResource):
+class DataLakeStoreAccountInformation(SubResource):
     """Data Lake Store account information.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: The resource identifier.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: The resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: The resource type.
     :vartype type: str
     :ivar suffix: The optional suffix for the Data Lake Store account.
     :vartype suffix: str
@@ -43,5 +43,5 @@ class DataLakeStoreAccountInfo(SubResource):
     }
 
     def __init__(self):
-        super(DataLakeStoreAccountInfo, self).__init__()
+        super(DataLakeStoreAccountInformation, self).__init__()
         self.suffix = None

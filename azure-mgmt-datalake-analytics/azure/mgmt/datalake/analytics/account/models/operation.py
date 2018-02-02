@@ -20,8 +20,8 @@ class Operation(Model):
 
     :ivar name: The name of the operation.
     :vartype name: str
-    :param display: The display information for the operation.
-    :type display:
+    :ivar display: The display information for the operation.
+    :vartype display:
      ~azure.mgmt.datalake.analytics.account.models.OperationDisplay
     :ivar origin: The intended executor of the operation. Possible values
      include: 'user', 'system', 'user,system'
@@ -31,6 +31,7 @@ class Operation(Model):
 
     _validation = {
         'name': {'readonly': True},
+        'display': {'readonly': True},
         'origin': {'readonly': True},
     }
 
@@ -40,8 +41,8 @@ class Operation(Model):
         'origin': {'key': 'origin', 'type': 'str'},
     }
 
-    def __init__(self, display=None):
+    def __init__(self):
         super(Operation, self).__init__()
         self.name = None
-        self.display = display
+        self.display = None
         self.origin = None

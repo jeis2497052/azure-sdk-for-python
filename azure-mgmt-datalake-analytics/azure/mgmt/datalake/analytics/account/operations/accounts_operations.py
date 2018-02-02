@@ -18,14 +18,14 @@ from msrestazure.azure_operation import AzureOperationPoller
 from .. import models
 
 
-class JobOperations(object):
-    """JobOperations operations.
+class AccountsOperations(object):
+    """AccountsOperations operations.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An objec model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2017-09-01-preview".
+    :ivar api_version: Client Api Version. Constant value: "2016-11-01".
     """
 
     models = models
@@ -35,19 +35,15 @@ class JobOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-09-01-preview"
+        self.api_version = "2016-11-01"
 
         self.config = config
 
     def list(
-            self, account_name, filter=None, top=None, skip=None, select=None, orderby=None, count=None, custom_headers=None, raw=False, **operation_config):
-        """Lists the jobs, if any, associated with the specified Data Lake
-        Analytics account. The response includes a link to the next page of
-        results, if any.
+            self, filter=None, top=None, skip=None, select=None, orderby=None, count=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the first page of Data Lake Analytics accounts, if any, within the
+        current subscription. This includes a link to the next page, if any.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
         :param filter: OData filter. Optional.
         :type filter: str
         :param top: The number of items to return. Optional.
@@ -73,19 +69,18 @@ class JobOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of JobInformationBasic
+        :return: An iterator like instance of DataLakeAnalyticsAccountBasic
         :rtype:
-         ~azure.mgmt.datalake.analytics.job.models.JobInformationBasicPaged[~azure.mgmt.datalake.analytics.job.models.JobInformationBasic]
+         ~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccountBasicPaged[~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccountBasic]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def internal_paging(next_link=None, raw=False):
 
             if not next_link:
                 # Construct URL
-                url = '/jobs'
+                url = '/subscriptions/{subscriptionId}/providers/Microsoft.DataLakeAnalytics/accounts'
                 path_format_arguments = {
-                    'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-                    'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True)
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
@@ -132,44 +127,122 @@ class JobOperations(object):
             return response
 
         # Deserialize response
-        deserialized = models.JobInformationBasicPaged(internal_paging, self._deserialize.dependencies)
+        deserialized = models.DataLakeAnalyticsAccountBasicPaged(internal_paging, self._deserialize.dependencies)
 
         if raw:
             header_dict = {}
-            client_raw_response = models.JobInformationBasicPaged(internal_paging, self._deserialize.dependencies, header_dict)
+            client_raw_response = models.DataLakeAnalyticsAccountBasicPaged(internal_paging, self._deserialize.dependencies, header_dict)
             return client_raw_response
 
         return deserialized
 
-    def create(
-            self, account_name, job_identity, parameters, custom_headers=None, raw=False, **operation_config):
-        """Submits a job to the specified Data Lake Analytics account.
+    def list_by_resource_group(
+            self, filter=None, top=None, skip=None, select=None, orderby=None, count=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the first page of Data Lake Analytics accounts, if any, within a
+        specific resource group. This includes a link to the next page, if any.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job identifier. Uniquely identifies the job
-         across all jobs submitted to the service.
-        :type job_identity: str
-        :param parameters: The parameters to submit a job.
-        :type parameters:
-         ~azure.mgmt.datalake.analytics.job.models.CreateJobParameters
+        :param filter: OData filter. Optional.
+        :type filter: str
+        :param top: The number of items to return. Optional.
+        :type top: int
+        :param skip: The number of items to skip over before returning
+         elements. Optional.
+        :type skip: int
+        :param select: OData Select statement. Limits the properties on each
+         entry to just those requested, e.g.
+         Categories?$select=CategoryName,Description. Optional.
+        :type select: str
+        :param orderby: OrderBy clause. One or more comma-separated
+         expressions with an optional "asc" (the default) or "desc" depending
+         on the order you'd like the values sorted, e.g.
+         Categories?$orderby=CategoryName desc. Optional.
+        :type orderby: str
+        :param count: The Boolean value of true or false to request a count of
+         the matching resources included with the resources in the response,
+         e.g. Categories?$count=true. Optional.
+        :type count: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: JobInformation or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.analytics.job.models.JobInformation or
-         ~msrest.pipeline.ClientRawResponse
+        :return: An iterator like instance of DataLakeAnalyticsAccountBasic
+        :rtype:
+         ~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccountBasicPaged[~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccountBasic]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        def internal_paging(next_link=None, raw=False):
+
+            if not next_link:
+                # Construct URL
+                url = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts'
+                path_format_arguments = {
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+                    'resourceGroupName': self._serialize.url("self.config.resource_group_name", self.config.resource_group_name, 'str')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
+
+                # Construct parameters
+                query_parameters = {}
+                if filter is not None:
+                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
+                if top is not None:
+                    query_parameters['$top'] = self._serialize.query("top", top, 'int', minimum=1)
+                if skip is not None:
+                    query_parameters['$skip'] = self._serialize.query("skip", skip, 'int', minimum=1)
+                if select is not None:
+                    query_parameters['$select'] = self._serialize.query("select", select, 'str')
+                if orderby is not None:
+                    query_parameters['$orderby'] = self._serialize.query("orderby", orderby, 'str')
+                if count is not None:
+                    query_parameters['$count'] = self._serialize.query("count", count, 'bool')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.get(url, query_parameters)
+            response = self._client.send(
+                request, header_parameters, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            return response
+
+        # Deserialize response
+        deserialized = models.DataLakeAnalyticsAccountBasicPaged(internal_paging, self._deserialize.dependencies)
+
+        if raw:
+            header_dict = {}
+            client_raw_response = models.DataLakeAnalyticsAccountBasicPaged(internal_paging, self._deserialize.dependencies, header_dict)
+            return client_raw_response
+
+        return deserialized
+
+
+    def _create_initial(
+            self, parameters, custom_headers=None, raw=False, **operation_config):
         # Construct URL
-        url = '/jobs/{jobIdentity}'
+        url = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}'
         path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("self.config.resource_group_name", self.config.resource_group_name, 'str'),
+            'accountName': self._serialize.url("self.config.account_name", self.config.account_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -188,14 +261,14 @@ class JobOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'CreateJobParameters')
+        body_content = self._serialize.body(parameters, 'CreateDataLakeAnalyticsAccountParameters')
 
         # Construct and send request
         request = self._client.put(url, query_parameters)
         response = self._client.send(
             request, header_parameters, body_content, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 201]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -203,7 +276,9 @@ class JobOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('JobInformation', response)
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -211,31 +286,91 @@ class JobOperations(object):
 
         return deserialized
 
-    def get(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        """Gets the job information for the specified job ID.
+    def create(
+            self, parameters, custom_headers=None, raw=False, **operation_config):
+        """Creates the specified Data Lake Analytics account. This supplies the
+        user with computation services for Data Lake Analytics workloads.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: JobInfo ID.
-        :type job_identity: str
+        :param parameters: Parameters supplied to create a new Data Lake
+         Analytics account.
+        :type parameters:
+         ~azure.mgmt.datalake.analytics.account.models.CreateDataLakeAnalyticsAccountParameters
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :return: An instance of AzureOperationPoller that returns
+         DataLakeAnalyticsAccount or ClientRawResponse if raw=true
+        :rtype:
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccount]
+         or ~msrest.pipeline.ClientRawResponse
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        raw_result = self._create_initial(
+            parameters=parameters,
+            custom_headers=custom_headers,
+            raw=True,
+            **operation_config
+        )
+        if raw:
+            return raw_result
+
+        # Construct and send request
+        def long_running_send():
+            return raw_result.response
+
+        def get_long_running_status(status_link, headers=None):
+
+            request = self._client.get(status_link)
+            if headers:
+                request.headers.update(headers)
+            header_parameters = {}
+            header_parameters['x-ms-client-request-id'] = raw_result.response.request.headers['x-ms-client-request-id']
+            return self._client.send(
+                request, header_parameters, stream=False, **operation_config)
+
+        def get_long_running_output(response):
+
+            if response.status_code not in [200, 201]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
+
+            if raw:
+                client_raw_response = ClientRawResponse(deserialized, response)
+                return client_raw_response
+
+            return deserialized
+
+        long_running_operation_timeout = operation_config.get(
+            'long_running_operation_timeout',
+            self.config.long_running_operation_timeout)
+        return AzureOperationPoller(
+            long_running_send, get_long_running_output,
+            get_long_running_status, long_running_operation_timeout)
+
+    def get(
+            self, custom_headers=None, raw=False, **operation_config):
+        """Gets details of the specified Data Lake Analytics account.
+
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: JobInformation or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.analytics.job.models.JobInformation or
-         ~msrest.pipeline.ClientRawResponse
+        :return: DataLakeAnalyticsAccount or ClientRawResponse if raw=true
+        :rtype:
+         ~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccount
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
-        url = '/jobs/{jobIdentity}'
+        url = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}'
         path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("self.config.resource_group_name", self.config.resource_group_name, 'str'),
+            'accountName': self._serialize.url("self.config.account_name", self.config.account_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -265,7 +400,7 @@ class JobOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('JobInformation', response)
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -275,13 +410,13 @@ class JobOperations(object):
 
 
     def _update_initial(
-            self, account_name, job_identity, parameters=None, custom_headers=None, raw=False, **operation_config):
+            self, parameters=None, custom_headers=None, raw=False, **operation_config):
         # Construct URL
-        url = '/jobs/{jobIdentity}'
+        url = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}'
         path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("self.config.resource_group_name", self.config.resource_group_name, 'str'),
+            'accountName': self._serialize.url("self.config.account_name", self.config.account_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -301,7 +436,7 @@ class JobOperations(object):
 
         # Construct body
         if parameters is not None:
-            body_content = self._serialize.body(parameters, 'UpdateJobParameters')
+            body_content = self._serialize.body(parameters, 'UpdateDataLakeAnalyticsAccountParameters')
         else:
             body_content = None
 
@@ -318,7 +453,11 @@ class JobOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('JobInformation', response)
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
+        if response.status_code == 202:
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -327,32 +466,25 @@ class JobOperations(object):
         return deserialized
 
     def update(
-            self, account_name, job_identity, parameters=None, custom_headers=None, raw=False, **operation_config):
-        """Updates the job information for the specified job ID. (Only for use
-        internally with Scope job type.).
+            self, parameters=None, custom_headers=None, raw=False, **operation_config):
+        """Updates the Data Lake Analytics account object specified by the
+        accountName with the contents of the account object.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job identifier. Uniquely identifies the job
-         across all jobs submitted to the service.
-        :type job_identity: str
-        :param parameters: The parameters to update a job.
+        :param parameters: Parameters supplied to the update Data Lake
+         Analytics account operation.
         :type parameters:
-         ~azure.mgmt.datalake.analytics.job.models.UpdateJobParameters
+         ~azure.mgmt.datalake.analytics.account.models.UpdateDataLakeAnalyticsAccountParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :return: An instance of AzureOperationPoller that returns
-         JobInformation or ClientRawResponse if raw=true
+         DataLakeAnalyticsAccount or ClientRawResponse if raw=true
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.datalake.analytics.job.models.JobInformation]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.datalake.analytics.account.models.DataLakeAnalyticsAccount]
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._update_initial(
-            account_name=account_name,
-            job_identity=job_identity,
             parameters=parameters,
             custom_headers=custom_headers,
             raw=True,
@@ -382,7 +514,7 @@ class JobOperations(object):
                 exp.request_id = response.headers.get('x-ms-request-id')
                 raise exp
 
-            deserialized = self._deserialize('JobInformation', response)
+            deserialized = self._deserialize('DataLakeAnalyticsAccount', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)
@@ -397,31 +529,15 @@ class JobOperations(object):
             long_running_send, get_long_running_output,
             get_long_running_status, long_running_operation_timeout)
 
-    def get_statistics(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        """Gets statistics of the specified job.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job Information ID.
-        :type job_identity: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: JobStatistics or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.analytics.job.models.JobStatistics or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
+    def _delete_initial(
+            self, custom_headers=None, raw=False, **operation_config):
         # Construct URL
-        url = '/jobs/{jobIdentity}/getStatistics'
+        url = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}'
         path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("self.config.resource_group_name", self.config.resource_group_name, 'str'),
+            'accountName': self._serialize.url("self.config.account_name", self.config.account_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -440,116 +556,7 @@ class JobOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('JobStatistics', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-
-    def get_debug_data_path(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        """Gets the job debug data information specified by the job ID.
-
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job identifier. Uniquely identifies the job
-         across all jobs submitted to the service.
-        :type job_identity: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: JobDataPath or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.analytics.job.models.JobDataPath or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        # Construct URL
-        url = '/jobs/{jobIdentity}/getDebugDataPath'
-        path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('JobDataPath', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-
-
-    def _cancel_initial(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        # Construct URL
-        url = '/jobs/{jobIdentity}/cancelJob'
-        path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters)
+        request = self._client.delete(url, query_parameters)
         response = self._client.send(request, header_parameters, stream=False, **operation_config)
 
         if response.status_code not in [200, 202, 204]:
@@ -561,16 +568,11 @@ class JobOperations(object):
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
 
-    def cancel(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        """Cancels the running job specified by the job ID.
+    def delete(
+            self, custom_headers=None, raw=False, **operation_config):
+        """Begins the delete process for the Data Lake Analytics account object
+        specified by the account name.
 
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job identifier. Uniquely identifies the job
-         across all jobs submitted to the service.
-        :type job_identity: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -580,9 +582,7 @@ class JobOperations(object):
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        raw_result = self._cancel_initial(
-            account_name=account_name,
-            job_identity=job_identity,
+        raw_result = self._delete_initial(
             custom_headers=custom_headers,
             raw=True,
             **operation_config
@@ -622,134 +622,32 @@ class JobOperations(object):
             long_running_send, get_long_running_output,
             get_long_running_status, long_running_operation_timeout)
 
+    def check_name_availability(
+            self, location, name, custom_headers=None, raw=False, **operation_config):
+        """Checks whether the specified account name is available or taken.
 
-    def _yield_method_initial(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        # Construct URL
-        url = '/jobs/{jobIdentity}/yieldJob'
-        path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True),
-            'jobIdentity': self._serialize.url("job_identity", job_identity, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200, 202, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
-
-        if raw:
-            client_raw_response = ClientRawResponse(None, response)
-            return client_raw_response
-
-    def yield_method(
-            self, account_name, job_identity, custom_headers=None, raw=False, **operation_config):
-        """Pauses the specified job and places it back in the job queue, behind
-        other jobs of equal or higher importance, based on priority. (Only for
-        use internally with Scope job type.).
-
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param job_identity: Job identifier. Uniquely identifies the job
-         across all jobs submitted to the service.
-        :type job_identity: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :return: An instance of AzureOperationPoller that returns None or
-         ClientRawResponse if raw=true
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        raw_result = self._yield_method_initial(
-            account_name=account_name,
-            job_identity=job_identity,
-            custom_headers=custom_headers,
-            raw=True,
-            **operation_config
-        )
-        if raw:
-            return raw_result
-
-        # Construct and send request
-        def long_running_send():
-            return raw_result.response
-
-        def get_long_running_status(status_link, headers=None):
-
-            request = self._client.get(status_link)
-            if headers:
-                request.headers.update(headers)
-            header_parameters = {}
-            header_parameters['x-ms-client-request-id'] = raw_result.response.request.headers['x-ms-client-request-id']
-            return self._client.send(
-                request, header_parameters, stream=False, **operation_config)
-
-        def get_long_running_output(response):
-
-            if response.status_code not in [200, 202, 204]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
-
-            if raw:
-                client_raw_response = ClientRawResponse(None, response)
-                return client_raw_response
-
-        long_running_operation_timeout = operation_config.get(
-            'long_running_operation_timeout',
-            self.config.long_running_operation_timeout)
-        return AzureOperationPoller(
-            long_running_send, get_long_running_output,
-            get_long_running_status, long_running_operation_timeout)
-
-    def build(
-            self, account_name, parameters, custom_headers=None, raw=False, **operation_config):
-        """Builds (compiles) the specified job in the specified Data Lake
-        Analytics account for job correctness and validation.
-
-        :param account_name: The Azure Data Lake Analytics account to execute
-         job operations on.
-        :type account_name: str
-        :param parameters: The parameters to build a job.
-        :type parameters:
-         ~azure.mgmt.datalake.analytics.job.models.BuildJobParameters
+        :param location: The resource location without whitespace.
+        :type location: str
+        :param name: The Data Lake Analytics name to check availability for.
+        :type name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: JobInformation or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.analytics.job.models.JobInformation or
-         ~msrest.pipeline.ClientRawResponse
+        :return: NameAvailabilityInformation or ClientRawResponse if raw=true
+        :rtype:
+         ~azure.mgmt.datalake.analytics.account.models.NameAvailabilityInformation
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        parameters = models.CheckNameAvailabilityParameters(name=name)
+
         # Construct URL
-        url = '/buildJob'
+        url = '/subscriptions/{subscriptionId}/providers/Microsoft.DataLakeAnalytics/locations/{location}/checkNameAvailability'
         path_format_arguments = {
-            'accountName': self._serialize.url("account_name", account_name, 'str', skip_quote=True),
-            'adlaJobDnsSuffix': self._serialize.url("self.config.adla_job_dns_suffix", self.config.adla_job_dns_suffix, 'str', skip_quote=True)
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'location': self._serialize.url("location", location, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -768,7 +666,7 @@ class JobOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'BuildJobParameters')
+        body_content = self._serialize.body(parameters, 'CheckNameAvailabilityParameters')
 
         # Construct and send request
         request = self._client.post(url, query_parameters)
@@ -783,7 +681,7 @@ class JobOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('JobInformation', response)
+            deserialized = self._deserialize('NameAvailabilityInformation', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)

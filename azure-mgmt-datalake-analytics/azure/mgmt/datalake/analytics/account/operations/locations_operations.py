@@ -58,8 +58,8 @@ class LocationsOperations(object):
         # Construct URL
         url = '/subscriptions/{subscriptionId}/providers/Microsoft.DataLakeAnalytics/locations/{location}/capability'
         path_format_arguments = {
-            'location': self._serialize.url("location", location, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'location': self._serialize.url("location", location, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 

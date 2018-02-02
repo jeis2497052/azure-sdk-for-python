@@ -18,11 +18,11 @@ class ComputePolicy(SubResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: The resource identifier.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: The resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: The resource type.
     :vartype type: str
     :ivar object_id: The AAD object identifier for the entity to create a
      policy for.
